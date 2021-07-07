@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: daphne-svc
+spec:
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    ms: daphne-deployment
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    ms: daphne-deployment
+  name: daphne-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      ms: daphne-deployment
+  template:
+    metadata:
+      labels:
+        ms: daphne-deployment
+    spec:
+      containers:
+      - name: daphne-deployment
+        image: alexeyebi/epirr_daphne
+        command: ['/bin/bash', 'run_daphne.sh']
+        ports:
+        - containerPort: 8000

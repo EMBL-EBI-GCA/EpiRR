@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    ms: biovalidator-deployment
+  name: biovalidator-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      ms: biovalidator-deployment
+  template:
+    metadata:
+      labels:
+        ms: biovalidator-deployment
+    spec:
+      containers:
+      - image: quay.io/ebi-ait/biovalidator:1.0.0
+        args: ["--server"]
+        name: biovalidator-deployment
+        ports:
+        - containerPort: 3020
+          protocol: TCP

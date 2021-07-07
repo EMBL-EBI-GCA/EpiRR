@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    ms: biovalidator
+  name: biovalidator-svc
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 3020
+  selector:
+    ms: biovalidator-deployment
